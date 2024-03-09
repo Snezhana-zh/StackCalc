@@ -1,0 +1,9 @@
+add=src.commands.Add
+sub=src.commands.Subtract
+mul=src.commands.Mul
+div=src.commands.Div
+sqrt=src.commands.Sqrt
+push=src.commands.Push
+print=src.commands.Print
+define=src.commands.Define
+pop=src.commands.Pop

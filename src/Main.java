@@ -1,8 +1,11 @@
 package src;
 import org.apache.commons.cli.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
         Options options = new Options();
         options.addOption("f", "file", true, "Input file");
@@ -45,8 +48,10 @@ public class Main {
                 command.execute(lineList, context);
             }
         } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "IOException", e);
             e.printStackTrace();
         } catch (CalcException e) {
+            LOGGER.log(Level.SEVERE, "CalcException", e);
             e.printStackTrace();
         }
     }

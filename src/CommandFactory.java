@@ -6,17 +6,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 
 public class CommandFactory {
-    private static CommandFactory factory;
+    private static final CommandFactory factory = new CommandFactory();
     private Map<String, Command> commands = new HashMap<>();
     public Command findCommand(String key_command) {
         return commands.get(key_command);
     }
     public static CommandFactory getInstance() {
-        if (factory == null) {
-            factory = new CommandFactory();
-        }
         return factory;
     }
     private CommandFactory() {

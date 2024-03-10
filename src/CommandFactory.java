@@ -8,11 +8,18 @@ import java.util.Map;
 import java.util.Properties;
 
 public class CommandFactory {
+    private static CommandFactory factory;
     private Map<String, Command> commands = new HashMap<>();
     public Command findCommand(String key_command) {
         return commands.get(key_command);
     }
-    public CommandFactory() {
+    public static CommandFactory getInstance() {
+        if (factory == null) {
+            factory = new CommandFactory();
+        }
+        return factory;
+    }
+    private CommandFactory() {
         InputStream in = null;
         try {
             in = Main.class.getResourceAsStream("properties");
@@ -23,12 +30,8 @@ public class CommandFactory {
                 var cur_command = (Command)(Class.forName(class_name).getDeclaredConstructor().newInstance());
                 Command command = new Command() {
                     @Override
-                    public void execute(String[] args, Context context) {
-                        try {
-                            cur_command.execute(args, context);
-                        } catch (CalcException e) {
-                            e.printStackTrace();
-                        }
+                    public void execute(String[] args, Context context) throws CalcException {
+                        cur_command.execute(args, context);
                     }
                 };
                 commands.put(key, command);

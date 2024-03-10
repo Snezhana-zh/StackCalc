@@ -26,7 +26,7 @@ public class Main {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            CommandFactory factory = new CommandFactory();
+            CommandFactory factory = CommandFactory.getInstance();
 
             String line;
             while(null != (line = reader.readLine()) && !(line.isEmpty())) {
@@ -47,7 +47,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CalcException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }

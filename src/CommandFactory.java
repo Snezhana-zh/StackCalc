@@ -25,14 +25,8 @@ public class CommandFactory {
             prop.load(in);
             for (String key : prop.stringPropertyNames()) {
                 String class_name = prop.getProperty(key);
-                var cur_command = (Command)(Class.forName(class_name).getDeclaredConstructor().newInstance());
-                Command command = new Command() {
-                    @Override
-                    public void execute(String[] args, Context context) throws CalcException {
-                        cur_command.execute(args, context);
-                    }
-                };
-                commands.put(key, command);
+                Command cur_command = (Command)Class.forName(class_name).getDeclaredConstructor().newInstance();
+                commands.put(key, cur_command);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,14 +40,6 @@ public class CommandFactory {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     };
 }
